@@ -34,7 +34,7 @@ lines = [s]
 for i in ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT', 'WA', 'WI', 'WV', 'WY']:
 	new_lines = []
 	for j in lines:
-		new_lines.extend(j.split('\r' + i + '\t'))
+		new_lines.extend(j.split('\n' + i + '\t'))
 
 	lines = new_lines
 
@@ -44,8 +44,8 @@ counties = []
 
 for line in lines:
 	l = line.split()
-	new_county = county(l[0], l[1])
-	new_county.add_data(l[-1])
+	new_county = county(l[2], l[3])
+	new_county.add_data(l[-6])
 	counties.append(new_county)
 
 curlines = fin2.readlines()
@@ -57,7 +57,7 @@ for curline in curlines:
 		if l[0] == county.state and l[1] == county.fips:
 			break
 
-	l.insert(-1, county.total_water)
+	l.insert(2, county.total_water)
 
 	fout.write('\t'.join(l) + '\n')
 	county.written = True
