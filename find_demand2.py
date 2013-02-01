@@ -50,7 +50,9 @@ for line in lines:
 
 curlines = fin2.readlines()
 
-for curline in curlines:
+fout.write(curlines[0])
+
+for curline in curlines[1:]:
 	l = curline.split()
 	for i in range(len(counties)):
 		county = counties[i]
