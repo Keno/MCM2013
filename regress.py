@@ -3,14 +3,10 @@
 import os
 import sys
 import string
+from numpy import loadtxt
+from scipy import stats
 
-missing = ('21','23','41','42','47','48','49','54')
-
-def regression(a, b, c, state):
-	if state in missing:
-		return (c-a) * 2 + c
-	else:
-		return (c-a) * 5.0 / 2 + (a+b+c)/3.0
+missing = (21,23,41,42,47,48,49,54)
 
 try:
 	fin = open(sys.argv[1], "r")
@@ -22,27 +18,29 @@ try:
 except:
 	sys.exit("Error, no/invalid output file")
 
-class county(object):
-	w25 = 0
-	def __init__(self, state, fips, w95, w00, w05):
-		self.state = state
-		self.fips = fips
-		self.w00 = w00
-		self.w95 = w95
-		self.w05 = w05
+try:
+	data = loadtxt(sys.argv[1])
+except:
+	sys.exit("Can't read file.")
 
-s = fin.readlines()
-s = s[1:]
+lines = fin.readlines()
 
-counties = [county(x[0],x[1],x[2],x[3],x[4]) for x in map(string.split, s)]
-	
-for county in counties:
-	county.w25 = regression(float(county.w95), float(county.w00), float(county.w05), county.state)
+X = range(85, 110, 5)
+X2 = [85, 90, 95, 105]
 
-	fout.write(county.state + '\t')
-	fout.write(county.fips + '\t')
-	fout.write(county.w95 + '\t')
-	fout.write(county.w00 + '\t')
-	fout.write(county.w05 + '\t')
-	fout.write(str(county.w25) + '\n')
+for i in range(len(lines)):
+	if data[i, 0] in missing:
+		l = []
+		l.extend(data[i, 2:])
+		l.remove(l[-2])
+		g, y, r, p, std_err = stats.linregress(X2, l)
 
+		lines[i] = (lines[i].split('\n'))[0] + '\t' + str(g * 125.0 + y) + '\n'
+	else:
+		l = data[i, 2:]
+		g, y, r, p, std_err = stats.linregress(X, l)
+
+		lines[i] = (lines[i].split('\n'))[0] + '\t' + str(g * 125.0 + y) + '\n'
+
+for line in lines:
+	fout.write(line)
