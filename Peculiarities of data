@@ -1,0 +1,9 @@
+Peculiarities of the data:
+
+Missing data:
+Year 2000, state 21, most of 23, 41,42,47, most of 48, most of 49, 54
+Year 1995, counties 8.14 and 12.86 (presumably created by 2000)
+
+States 72 (Puerto Rico) and 78 (Virgin Islands) should be ignored.
+
+In year 2000, states 23, 48, and 49 have absurdly low numbers, if not 0, that don't agree with the other two points.
