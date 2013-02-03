@@ -3,6 +3,7 @@
 import os
 import sys
 import string
+from math import log
 from numpy import loadtxt
 from scipy import stats
 
@@ -33,14 +34,17 @@ for i in range(len(lines)):
 		l = []
 		l.extend(data[i, 2:])
 		l.remove(l[-2])
-		g, y, r, p, std_err = stats.linregress(X2, l)
 
-		lines[i] = (lines[i].split('\n'))[0] + '\t' + str(g * 125.0 + y) + '\n'
+		l2 = [log(x + 1,2) for x in l if x != 0]
+		g, y, r, p, std_err = stats.linregress(X2, l2)
+
+		lines[i] = (lines[i].split('\n'))[0] + '\t' + str(2**(g * 125.0 + y)) + '\n'
 	else:
 		l = data[i, 2:]
-		g, y, r, p, std_err = stats.linregress(X, l)
+		l2 = [log(x + 1,2) for x in l]
+		g, y, r, p, std_err = stats.linregress(X, l2)
 
-		lines[i] = (lines[i].split('\n'))[0] + '\t' + str(g * 125.0 + y) + '\n'
+		lines[i] = (lines[i].split('\n'))[0] + '\t' + str(2**(g * 125.0 + y)) + '\n'
 
 for line in lines:
 	fout.write(line)
