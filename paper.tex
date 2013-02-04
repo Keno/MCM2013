@@ -43,21 +43,19 @@
 In response to the potential of water shortages in the United States
 by 2025, we present a series of recommended infrastructure developments
 intended to most efficiently meet future demands. We first create
-a projection of future water supply and demand at the county level
+a projection of future water usage at the county level
 based on extrapolating past data collected by the US Geological Survey,
 providing a visualization of water needs across the country. Based
 on these projections, and geographical data concerning the location
 of each county, we determine that a water management strategy primarily
-based on the construction of a pipeline network is ideal. We model
+based on the construction of a national pipeline network is ideal. We model
 counties as vertices and pipelines as edges in order to employ a minimum
 spanning tree algorithm to determine the optimal placement of new
-pipelines in order to minimize costs. Anticipating the possibility
-of funding being less than that required to construct all recommended
+pipelines in order to minimize costs and redundancy. Anticipating the possibility of funding being less than that required to construct all recommended
 infrastructure, we create a priority ordering of the pipelines, using
 a utility function based on county population data. We also consider
 the water supply of the country as a whole, providing recommendations
-as to the number of de-salinization plants required to meet the change
-in demand.
+as to the number of de-salinization plants and reservoirs to be built to meet the change in demand.
 
 \newpage{}
 
@@ -98,17 +96,22 @@ to where new infrastructure ought to be placed in order to most efficiently
 alleviate water shortages, based on a series of projections and a
 graph-based model focused on constructing a pipeline network.
 
+Our overall conclusions are as follows:
+\begin{enumerate}
+\item The US will not see a drastic increase in water usage. We estimate in Section \ref{total} that the overall increase in water usage by 2025 will not exceed 2 \%. In fact many regions will see a net decrease in water usage, according to our models.
+\item In the absence of overall water usage growth, our water management plan focuses on being robust to short-term crises like droughts. To solve the latter we propose a national grid of high-volume pipelines to improve connectivity and transport water to areas with increased seasonal water needs.
+\item Second, using cluster analysis we identify areas in which the growth in water demand will be most severe and recommend specific infrastructure in these regions to balance increased demand.
+\item Finally, we make recommendations on how to improve sustainability and decrease environmental impact, especially pollution and the depletion of groundwater.
+\end{enumerate}
 
 \subsection{Overview of Our Approach}
 
 We begin our paper with a projection of the likely levels of water
-supply (given no additional interference) and demand in the United
-States by 2025 on a county-by-county basis. Our primary source of
-data is the County-level water use data made publically available
+demand in the United States by 2025 on a county-by-county basis. Our primary source of data is the County-level water use data made publically available
 by the US Geological Survey (USGS) in years 1985, 1990, 1995, 2000,
 and 2005 \cite{key-2,key-3,key-4,key-5,key-6}. Using our projected
 figures, we describe a means of minimizing the expected cost of constructing
-water storage and water purification systems using a network flow
+water storage and water purification systems using a network flows
 algorithm.
 
 First, we project the County-level water needs in 2025 using water
@@ -241,7 +244,7 @@ and project the usage, which we assume to be equal to the total demand,
 on the county level in 2025. 
 
 
-\subsection{Total Supply}
+\subsection{Total Supply\label{total}}
 
 We model the overall water requirements of the United States by applying
 a linear regression to the total amount of water used across the country
@@ -308,6 +311,7 @@ all counties of the US together. This massive project would resolve
 all local fluctuations in water availability, allowing high-volume
 water transport between nearby counties and from distance regions
 to meet seasonal needs in certain areas.
+
 
 
 \subsection{Projected Cost of the Grid}
@@ -404,7 +408,7 @@ As a result, we firmly recommend that the entirety of our proprosed
 infrastructure developments, particularly the national pipeline network,
 be implemented over the upcoming years.
 \begin{thebibliography}{10}
-\bibitem{key-1}Cai, X., Cline, S., Rosegrant, M. (2002). Global Water
+\bibitem[1]{key-1}Cai, X., Cline, S., Rosegrant, M. (2002). Global Water
 Outlook to 2025. \emph{International Food Policy Research Institute.}
 
 \bibitem[2]{key-2}Estimated Use of Water in the United States County-Level
