@@ -202,7 +202,7 @@ than 3,300 square kilometers, and average length across of less than
 60 kilometers. The level of inaccuracy is sufficiently low that it
 is workable (in contrast, states for instance are far too large to
 be accurately modeled as points).
-\item De-salinization plants, reservoirs, and purification plants are all facilities that are built at a single location, and have the intended effect of providing more water to that location. For the purposes of our modelling, we think of them as being essentially the same kind of thing.
+\item De-salinization plants, reservoirs, and purification plants are all facilities that are built at a single location, and have the intended effect of providing more water to that location. For the purposes of our modelling, we can think of them as being essentially the same structure, with the proviso that they each can only be constructed in particular parts of the country. 
 \item When considering the costs of pipelines, only the distance of pipeline
 is considered. The landscape of a region may in practice affect the
 length of pipeline required, or may result in additional cost per
@@ -232,7 +232,7 @@ is possible today. We assume a figure of \$2 million per mile for
 the purposes of our pricing estimates.
 
 The cost of a de-salinization facility in 2013 is approximately \$14
-per gallon per day\cite{key-12}.
+per gallon per day\cite{key-12}. This figure is approximately the same as for similar kinds of facilities (reservoirs, dams).
 
 
 \section{Projecting Water Demand}
@@ -390,13 +390,13 @@ available figures that the average cost per mile is approximately
 
 This massive pipeline project is difficult to implement within a small time period, so we made the following calculations to prioritize the building of certain pipelines over others. We prioritize based on minimizing cost and maximizing the population served by each piece of the grid.
 
-Edges in the Minimal Spanning Tree in Figure \ref{fig:graph} are weighted inversely proportional to cost and directly proportional to the populations at each of the endpoints, and sorted. The resulting sorted table gives a full list of all $3108$ pipelines sorted by this utility metric. The final (highest priority) rows are shown in Table \ref{table:priority}.
+Edges in the Minimal Spanning Tree in Figure \ref{fig:graph} are weighted inversely proportional to cost and directly proportional to the populations at each of the endpoints, and sorted. The resulting sorted table gives a full list of all $3108$ pipelines sorted by this utility metric. The final (highest priority) rows are shown in Table \ref{table:priority}, with FIPS1 and FIPS2 representing the FIPS codes of the ends of each pipe.
 
 \begin{table}[h]\label{table:priority}
 \begin{center}
 \begin{tabular}{|c|c|c|}
 \hline
-FIPS 1 & FIPS 2 & Priority \tabularnewline
+FIPS1 & FIPS 2 & Priority \tabularnewline
 \hline
 48201 & 48339 & 10346.3 \tabularnewline
 \hline
@@ -507,24 +507,6 @@ The data is available from the USGS website in standard ASCII tsv format.
 
 For this data, we wrote a visualization software that allows arbitrary sets of county-level data to be displayed on maps of the United States. The visualization of total water usage for every county in the years covered by the USGS data is shown in figure \ref{fig:water}
 
-
-\section{The Case of Insufficient Funding}
-
-
-Our model projects levels of supply and demand in 2025, and proceeds
-to recommend infrastructure to meet that demand while minimizing cost.
-This reflects the main precedent in major development of water supply
-infrastructure in the United States, namely the \$24.6 billion Clean
-Water Act \cite{key-15}, established with the aim of eliminating
-all pollution of water supplies.
-
-However, it is possible there will be insufficient funding for this
-project. In this case, it will not be possible to construct all of
-the recommended infrastructure. We approach this problem by creating
-a priority listing, ordering the suggested developments in terms of
-utility per dollar. To this end, we employ the following formula:
-
-
 \section{Sensitivity and Variance}
 
 There are two anticipated causes of significant variance in water
@@ -567,6 +549,24 @@ A secondary and extremely desirable effect of high national connectivity is decr
 Due to overexploitation many areas have experienced severe water-level decline, an average of 12.8 feet. While 9 percent of areas suffered decline as severe as 50 feet, only a bare 2 percent saw any significant (over 10 feet) degree of water-level rise since  prior to development. It is estimated that 9 percent of the total storage in this massive and essential groundwater supply was exhausted in 2005.
 
 To alleviate this chronic and unsustainable drain on our nation's precious groundwater resources, our water grid would funnel water to agricultural states from more sustainable water supplies such as desalinated seawater and surface water supplies. At very least, we can guarantee spreading the stress on aquifers much more evenly than the current wildly varying rates of exploitation.
+
+\section{Potential Weaknesses}
+
+Our proposed pipeline network can play a huge role in managing the distribution of freshwater over the United States. However, it is not a perfect solution to water management problems, and has some potential flaws:
+\begin{itemize}
+\item Before completion, there are holes in the network: Before every pipeline has been constructed, 
+there will be some pairs of counties that are not connected by pipelines. In this case, the network is still 
+useful, but is not quite as powerful as a complete network would be.
+\item Large scale droughts can be an issue: if the entirety of the one region (say, the west coast) is in 
+drought, while (say) the east coast has a water surplus, there may be bottlenecks in the middle of the country 
+as large amounts of water are transferred. This could potentially be an issue, but in reality, this kind of situation 
+is extremely rare, partially because the coasts of the United States do not tend to be where droughts occur.
+\item Some nearby counties are only connected by long and convoluted paths: This is not as much of an issue as 
+one might imagine, because generally droughts happen slowly, and hence it is acceptable for water to take a long time to 
+reach its destination. However, if this is seen as a major issue, a small number of additional pipes can be added on a case-by-case basis.
+\end{itemize}
+
+However, none of these is a fatal flaw in the idea of constructing a pipeline network.
 
 \section{Conclusions}
 
