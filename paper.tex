@@ -357,22 +357,18 @@ Hawaii, which our model predicts to be in little need of additional
 water infrastructure) while minimizing the length of pipeline used,
 and hence minimizing the cost of the project.
 
-To do this, we implement a variant of a minimum spannning tree algorithm
-on the complete graph of counties with edges weighted by distance:
+To do this, we implement Kruskal's minimum spannning tree algorithm
+on the complete graph of counties with edges weighted by distance. 
 
-$\:$
+From GPS coordinates of the (geographical) centroids of all 3109 mainland counties, we calculated the adjacency matrix $d[i,j]$ of all county pairs, weighted by geographical distance.
 
-(add a flowchart here)
-
-$\:$
+Running Kruskal's algorithm with a priority queue and a union-find data structure we were able to calculate the full minimal spanning tree in under a minute of running time.
 
 The end result is a spanning tree of minimal total length connecting
 all counties of the US together. This massive project would resolve
 all local fluctuations in water availability, allowing high-volume
 water transport between nearby counties and from distance regions
 to meet seasonal needs in certain areas.
-
-
 
 \subsection{Projected Cost of the Grid}
 
