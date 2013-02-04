@@ -1,0 +1,462 @@
+%% LyX 2.0.4 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[12pt,english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% Because html converters don't know tabularnewline
+\providecommand{\tabularnewline}{\\}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\usepackage{babel}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\makeatother
+
+\usepackage{babel}
+\begin{document}
+\pagestyle{fancy} \lhead{Team \# 23813} \rhead{Page \thepage\ of
+\pageref{LastPage}}
+
+\makeatletter \let\@oddfoot\@empty \let\@evenfoot\@empty \makeatother
+
+
+\title{title}
+
+
+\author{Control Number: 23813}
+
+
+\date{\today}
+\maketitle
+\begin{abstract}
+\thispagestyle{empty}
+
+In response to the potential of water shortages in the United States
+by 2025, we present a series of recommended infrastructure developments
+intended to most efficiently meet future demands. We first create
+a projection of future water supply and demand at the county level
+based on extrapolating past data collected by the US Geological Survey,
+providing a visualization of water needs across the country. Based
+on these projections, and geographical data concerning the location
+of each county, we determine that a water management strategy primarily
+based on the construction of a pipeline network is ideal. We model
+counties as vertices and pipelines as edges in order to employ a minimum
+spanning tree algorithm to determine the optimal placement of new
+pipelines in order to minimize costs. Anticipating the possibility
+of funding being less than that required to construct all recommended
+infrastructure, we create a priority ordering of the pipelines, using
+a utility function based on county population data. We also consider
+the water supply of the country as a whole, providing recommendations
+as to the number of de-salinization plants required to meet the change
+in demand.
+
+\newpage{}
+
+\thispagestyle{empty}
+
+To the United States Government:
+
+$\:$
+
+In light of the 2012-2013 drought season, and the possibility of potentially
+more severe droughts in the future, our department has conducted an
+analysis of how best to satisfy the water needs of the United States. 
+
+For the full details of our findings, please refer to our full paper,
+attached below.
+
+\newpage{}
+
+\tableofcontents{}
+
+\newpage{} 
+\end{abstract}
+
+\section{Introduction}
+
+The availability of freshwater is growing increasingly severe as a
+limiting factor in world development. In particular, issues of pollution,
+climate change, and the possibility of increased water demand in the
+future could potentially result in more frequent water shortages in
+some parts of the United States.
+
+It is projected that by 2025 the world's total demand for water will
+exceed available supplies \cite{key-1}. In response to growing concerns
+regarding water management, we construct a water management plan for
+the United States in 2013, with the goal of developing infrastructure
+to meet projected needs by 2025. We will provide recommendations as
+to where new infrastructure ought to be placed in order to most efficiently
+alleviate water shortages, based on a series of projections and a
+graph-based model focused on constructing a pipeline network.
+
+
+\subsection{Overview of Our Approach}
+
+We begin our paper with a projection of the likely levels of water
+supply (given no additional interference) and demand in the United
+States by 2025 on a county-by-county basis. Our primary source of
+data is the County-level water use data made publically available
+by the US Geological Survey (USGS) in years 1985, 1990, 1995, 2000,
+and 2005 \cite{key-2,key-3,key-4,key-5,key-6}. Using our projected
+figures, we describe a means of minimizing the expected cost of constructing
+water storage and water purification systems using a network flow
+algorithm.
+
+First, we project the County-level water needs in 2025 using water
+use data from the years listed, making the assumption that water use
+equals the current water demands.
+
+This paper attempts to address key aspects of a feasible water management
+strategy, based on the available data. With our projection of expected
+water needs in mind, we aim to meet demands by investing in the following
+infrastructure: 
+\begin{itemize}
+\item De-salinization plants 
+\item Water purification facilities 
+\item Reservoirs and dams
+\end{itemize}
+However, it is not sufficient to simply have more water available
+in the country's supplies as a whole. It's also critical that each
+individual location be able to access that water. For this purpose
+we aim to find the optimal locations to place pipelines.
+
+This paper is primarily concerned with the construction of new water
+supply infrastructure. Thus, there are some aspects of the water management
+process that will not be further considered: 
+\begin{itemize}
+\item Public education: As with all issues of resource conservation, the
+behaviour of the general public has an effect on water supplies. This
+will not be considered here, for several reasons. The key issue is
+that there is a lack of empirical evidence suggesting that currently
+known public education strategies will work to minimise water usage
+in the United States (developing such strategies further is beyond
+the scope of this paper). The United States in particular has been
+particularly resistant to attempts to reduce per capita water consumption\cite{key-7}.
+More generally, even water education programmes considered particularly
+successful, such as that of Singapore, have not managed to make a
+huge impact on consumption, with an approximate 5 per cent reduction
+in household water use over 6 years\cite{key-8}. Finally, the effect
+of water education programmes is likely to have a similar effect in
+each location. This means that areas that would be most in need of
+additional infrastructure taking into account such programmes would
+be essentially the same as those areas most in need while not taking
+into account such programmes. 
+\item Maintenance costs of current infrastructure: minimizing maintenance
+costs depends on technological advancement and management, but is
+essentially a fixed cost irrespective of the new infrastructure we
+decide to implement.
+\item Cost of obtaining data: Much of our analysis depends on USGS data.
+We note that the cost of obtaining this survey data is negligible
+(the WaterSMART initiative, which collects much of the data, cost
+\$21 million this year\cite{key-9}. In comparison, de-salinization
+facilities can easily cost billions to construct\cite{key-10}) compared
+to the utility of superior decision making in constructing water-related
+infrastructure (among various other things the data is useful for).
+\end{itemize}
+
+\section{Modeling Infrastructure}
+
+
+\subsection{Assumptions}
+
+Due to the scale and complexity of the task of water management in
+the United States, we make several simplifying assumptions in order
+to obtain a workable model.
+\begin{itemize}
+\item Counties are thought of as discrete entities, occupying points in
+space located at their centroid. This assumption enables us to think
+of counties as vertices (as in a graph). This assumption can be made
+without losing too much accuracy for several reasons: The United States
+is split into more than 3,000 counties, with an average area of less
+than 3,300 square kilometers, and average length across of less than
+60 kilometers. The level of inaccuracy is sufficiently low that it
+is workable (in contrast, states for instance are far too large to
+be accurately modeled as points).
+\item When considering the costs of pipelines, only the distance of pipeline
+is considered. The landscape of a region may in practice affect the
+length of pipeline required, or may result in additional cost per
+length of pipeline, but we shall not model this, as we could not find
+data on the difficulty of pipeline construction across different types
+of terrain.
+\item Pipelines are thought of as bi-directional. This assumption essentially
+reflects the reality of pipelines. There are a few exceptional cases
+where it is significantly more difficult to send water in one direction,
+but these are rare enough that they can be disregarded.
+\item Pipelines have variable rates of water transmission, depending on
+factors such as size. However, pipelines typically 
+\item Some pipelines exist
+\end{itemize}
+
+\subsection{Costs\label{sub:Costs}}
+
+The prices per unit for water-related infrastructure are important
+constants within our models.
+
+We assume a constant cost per length of pipeline. Estimates for the
+cost of pipeline range from approximately \$1.5 million per mile to
+\$5 million per mile\cite{key-11}, with the higher figures generally
+corresponding to older pipelines constructed less efficiently than
+is possible today. We assume a figure of \$2 million per mile for
+the purporses of our pricing estimates.
+
+The cost of a de-salinization facility in 2013 is approximately \$14
+per gallon per day\cite{key-12}.
+
+
+\section{Projecting Water Demand}
+
+To inform our water management decisions we extrapolated from the
+available data from the years 1985-2005 to project the total water
+usage at the county level in 2025. The available data comes in a matrix
+$WU[i,j]$ with $i\in\{1985,1990,1995,2000,2005\}$ and $j$ ranging
+through the US counties (indexed by FIPS codes), of total water used
+per county. In the USGS data \cite{key-2,key-3,key-4,key-5,key-6}
+certain peculiarities and missing data arises, for instance:
+\begin{itemize}
+\item Eight full states are missing water usage data in 2000 altogether.
+\item Anomalous data an order of magnitude off arises commonly in the data
+in year 1985.
+\item Other discrepancies appear in certain counties - for example, a handful
+of county FIPS codes go out of existence between 1990 and 1995, and
+two new counties are introduced in between 2000 and 2005.
+\end{itemize}
+A second difficulty with projection is the sheer temporal distance
+between the data we have, between 1985 and 2005, and the date at which
+we need to model, 2025. This massive extrapolation distance means
+that our projections will be highly sensitive to small changes in
+model, which requires that we use sensitive outlier analysis before
+applying regression analysis on the water usage data.
+
+We apply the following approach to remove outliers from $WU[i,j]$
+and project the usage, which we assume to be equal to the total demand,
+on the county level in 2025. 
+
+
+\subsection{Total Supply}
+
+We model the overall water requirements of the United States by applying
+a linear regression to the total amount of water used across the country
+as a whole.
+
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline 
+Year & 1985 & 1990 & 1995 & 2005 & 2013 (proj.) & 2025 (proj.)\tabularnewline
+\hline 
+Total Water Use (Bgal/day) & 398465 & 407980 & 401554 & 410465 & 413695 & 419355\tabularnewline
+\hline 
+\end{tabular}
+
+This model 
+
+
+\section{Optimising Placement of Pipelines}
+
+Our modelling of future water needs is consistent with external research
+on drought locations\cite{key-13}, in that it suggests many of the
+areas at risk of drought do not have the proximity to water sources
+required to make the construction of de-salinization plants feasible.
+
+The droughts in central America tend to occur in periods of minimal
+rainfall, and as the surrounding rivers and groundwater aquifers also
+dry up.
+
+This suggests that there is no currently known way to locally construct
+infrastructure to alleviate the water shortages in many of the areas
+in which water is most needed. 
+
+With this fact in mind, along with the knowledge that some areas in
+the United States have a surplus of water, we consider a plan implemented
+elsewhere in the world in a similar situation: a grid of pipelines
+(aqueducts), as implemented in Queensland, Australia\cite{key-14},
+in order to move water from counties with surplus water to those suffering
+drought conditions.
+
+
+\subsection{Modeling a Grid of Pipelines}
+
+To optimise the placement of pipelines, we parse geographical data
+for each of the counties, and produce a graph in which counties are
+represented as vertices, and undirected edges are placed between adjacent
+counties, with weights corresponding to the distance between the counties
+being connected.
+
+We aim to connect all of the mainland counties (excluding Alaska and
+Hawaii, which our model predicts to be in little need of additional
+water infrastructure) while minimizing the length of pipeline used,
+and hence minimizing the cost of the project.
+
+To do this, we implement a variant of a minimum spannning tree algorithm
+on the complete graph of counties with edges weighted by distance:
+
+$\:$
+
+(add a flowchart here)
+
+$\:$
+
+The end result is a spanning tree of minimal total length connecting
+all counties of the US together. This massive project would resolve
+all local fluctuations in water availability, allowing high-volume
+water transport between nearby counties and from distance regions
+to meet seasonal needs in certain areas.
+
+
+\subsection{Projected Cost of the Grid}
+
+To estimate the cost of building a national high-volume aqueduct system
+from scratch, we estimated in Section \ref{sub:Costs} using publically
+available figures that the average cost per mile is approximately
+\$2 million per mile as technology becomes cheaper and more efficient.
+
+
+\section{The Case of Insufficient Funding}
+
+Our model projects levels of supply and demand in 2025, and proceeds
+to recommend infrastructure to meet that demand while minimising cost.
+This reflects the main precedent in major development of water supply
+infrastructure in the United States, namely the \$24.6 billion Clean
+Water Act \cite{key-15}, established with the aim of eliminating
+all pollution of water supplies.
+
+However, it is possible there will be insufficient funding for this
+project. In this case, it will not be possible to construct all of
+the recommended infrastructure. We approach this problem by creating
+a priority listing, ordering the suggested developments in terms of
+utility per dollar. To this end, we employ the following formula:
+
+
+\section{Sensitivity and Variance}
+
+There are two anticipated causes of significant variance in water
+levels:
+\begin{itemize}
+\item Pathological rainfall levels (ie. extended periods of drought) 
+\item Significant unexpected change in population or behaviour 
+\end{itemize}
+Water systems in general are resistant to small variance in water
+supply or demand, and our system in particular fares well in this
+regard. Many of our suggested developments are particularly well equipped
+to handle over-supply: our model recommends the construction of additional
+pipelines and de-salinization plants — pipeline flow can be easily
+reduced, while de-salinization plants can be set to operate at partial
+capacity, saving electricity and avoiding over-supply.
+
+Slight shortages of water in the United States have consistently been
+dealt with successfully by implementing targeted water restrictions
+\cite{key-16}. There is little argument that the limitations, largely
+on gardening water, do not have a huge impact on people. 
+
+
+\section{Other Impacts}
+
+The core of our water management strategy is a large network of pipelines
+across the country in order to shift water to locations where it is
+most needed. The main reason for this is that similar approaches have
+proven effective when dealing with issues of drought in inland regions
+where groundwater and surface water supplies approach depletion. However,
+our plan of relying mostly on pipelines also has some other benefits
+over relying on other kinds of infrastructure.
+
+While de-salinization is simply not an option at all for much of central
+America, one idea we considered was the construction of additional
+dams and reservoirs. One considerable environmental issue associated
+with large dams is that they can cause unanticipated changes in overall
+river flow\cite{key-17}, totalling potentially huge amounts in damages.
+
+A secondary effect of high national connectivity is decreased reliance
+on groundwater. 
+
+
+\section{Conclusions}
+
+Our analyses allow us to make several important conclusions and recommendations
+regarding the future of water in the United States. By projecting
+future increases in water, we observe that while some parts of the
+United States (particularly on the coasts) are not at significant
+risk of water shortage by 2025, other parts of the country, particularly
+Central America, which already experienced drought in 2012-2013, are
+predicted to increase their demands for water in the upcoming years,
+and hence will be at risk of \textbf{severe drought}. Moreover, the
+area of the country potentially at risk is large, and a significant
+portion of the population could be affected. We conclude that there
+is significant utility in investing further in water infrastructure
+in the United States.
+
+To an extent
+
+The cost of the proposed infrastructure developments are significant,
+but must be placed in context. The cost of the 2012-2013 drought season
+on the United States economy is estimated at between \$75 billion
+and \$150 billion, and the potential total cost to the economy of
+drought-related occurrences between 2013 and 2025 is much greater
+even still. 
+
+As a result, we firmly recommend that the entirety of our proprosed
+infrastructure developments, particularly the national pipeline network,
+be implemented over the upcoming years.
+\begin{thebibliography}{10}
+\bibitem{key-1}Cai, X., Cline, S., Rosegrant, M. (2002). Global Water
+Outlook to 2025. \emph{International Food Policy Research Institute.}
+
+\bibitem[2]{key-2}Estimated Use of Water in the United States County-Level
+Data for 1985 (1955). \emph{US Geological Survey. }
+
+\bibitem[3]{key-3}Estimated Use of Water in the United States County-Level
+Data for 1990 (1990). \emph{US Geological Survey. }
+
+\bibitem[4]{key-4}Estimated Use of Water in the United States County-Level
+Data for 1995 (1995). \emph{US Geological Survey. }
+
+\bibitem[5]{key-5}Estimated Use of Water in the United States County-Level
+Data for 2000 (2000). \emph{US Geological Survey.}
+
+\bibitem[6]{key-6}Estimated Use of Water in the United States County-Level
+Data for 2005 (2005). \emph{US Geological Survey.}
+
+\bibitem[7]{key-7}Per Capita Water Use. Retrieved February 1, 2013,
+from http://www.pepps.fsu.edu/safe/pdf/sc1.pdf
+
+\bibitem[8]{key-8}Loh, J. (n.d.). Water management: Learning from
+Singapore's water succcess. Retrieved February 1, 2013, from http://workingwithwater.filtsep.com/view/934/water-management-learning-from-singapore-s-water-success/
+
+\bibitem[9]{key-9}2013 USGS Budget Proposal. Retrieved February 1,
+2013, from http://www.usgs.gov/newsroom/article.asp?ID=3103
+
+\bibitem[10]{key-10}Moran, T. (2007). Water Wars: Quenching Las Vegas'
+Thirst. Retrieved February 1, 2013, from http://abcnews.go.com/Nightline/story?id=3012250
+
+\bibitem[11]{key-11}Mission 2012: Clean Water. Retrieved February
+4, 2013, from http://web.mit.edu/12.000/www/m2012/finalwebsite/solution/glaciers.shtml
+
+\bibitem[12]{key-12}City of Carlsbad Seawater Desalination, Retrieved
+February 4, 2013, from http://www.carlsbadca.gov/services/departments/water/pages/seawaterdist.aspx
+
+\bibitem[13]{key-13}US Drought Monitor. Retrieved February 3, 2013,
+from http://droughtmonitor.unl.edu/
+
+\bibitem[14]{key-14}South East Queensland water grid. Retrieved Februrary
+3, 2013, from http://www.dsdip.qld.gov.au/infrastructure-delivery/south-east-queensland-water-grid.html
+
+\bibitem[15]{key-15}Burian, S., Nix, S., Pitt, R., Durrans, S. (2000).
+Urban Wastewater Management in the United States: Past, Present and
+Future. Retrieved February 1, 2013, from http://www.sewerhistory.org/articles/whregion/urban\_wwm\_mgmt/urban\_wwm\_mgmt.pdf
+
+\bibitem[16]{key-16}Kennedy, D., Klein, R., Clark, M. (2004) Use
+and Effectiveness of Municipal Water Restrictions During Drought in
+Colorado. Retrieved February 1, 2013, from http://sciencepolicy.colorado.edu/admin/publication\_files/resource-296-water\_restrictions\_jawra.pdf
+
+\bibitem[17]{key-17}China's Three Gorges Dam. Retrieved February
+3, 2013, from https://www.mtholyoke.edu/\textasciitilde{}vanti20m/classweb/website/environmentalimpact.html
+
+\bibitem[18]{key-18}http://www.wunderground.com/blog/JeffMasters/article.html?entrynum=2326\end{thebibliography}
+
+\end{document}
