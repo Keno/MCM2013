@@ -7,6 +7,9 @@
 \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
 
 \makeatletter
 
@@ -377,8 +380,80 @@ from scratch, we estimated in Section \ref{sub:Costs} using publically
 available figures that the average cost per mile is approximately
 \$2 million per mile as technology becomes cheaper and more efficient.
 
+\section{Data Analysis and Visualization}
+
+\subsection*{Computational Software}
+All data analysis and visualization was performed using the technical computing language Julia, making use of the packages "DataFrames", "Gadfly", "Distributions", "Compose", "Graphs" all of which are available in the Julia package manager and were licensed under the MIT license. 
+
+\subsection{Geographical Information}
+\begin{figure}
+		\centering
+        \includegraphics[width=\textwidth]{outlines}
+        \caption{Visualization of Shapefile data. For details on the methods used for the Visualization see the "Visualization" section}
+        \label{fig:outline}
+\end{figure}
+
+\subsubsection{Data Origin}
+As the problem of water distribution and availability is very much determined by the geographic location and conditions, we obtained a dataset containing the outlines and geographic locations of every county in the United States, which we then used in our county level analysis. Figure \ref{fig:outline} shows a visualization of the contents of this data set. For the method of visualization used, see Section \ref{sec:vis}.
+
+\subsubsection{Data Processing}
+The dataset we obtained was in the proprietary, binary "Shapefile" format, that is used by many professional GIS systems. Luckily, there exists an open documentation of the format \cite{key-21}, which allowed us to implement our own parser to extract the locations, and shapes of the various counties. 
+
+From the extracted polygons, we were able to calculate many of the desired geographical variables, such as total area of the county and it's location.
+
+\subsection{Water Usage Information}
+\subsubsection{Data Origin}
+
+As outlined in Section 3, we made use various data points collected by the USGS (United States Geological Survey) for every single county in the United  States in the years 1985, 1990, 1995, 2000 and 2005. The data is split into 104 categories ranging from standard data points such as the total amount of water consumed in a specific specific county to more unexpected ones such as water irrigation due to golf courses. 
+
+
+The data is available from the USGS website in standard ASCII tsv format.
+
+\subsection{Visualization}
+\label{sec:vis}
+
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.9\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{05.png}
+                \caption{2005}
+                \label{fig:2005}
+        \end{subfigure}
+        
+        \begin{subfigure}[b]{0.4\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{85.png}
+                \caption{1985}
+                \label{fig:1985}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.4\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{90.png}
+                \caption{1990}
+                \label{fig:1990}
+        \end{subfigure}
+        
+        \begin{subfigure}[b]{0.4\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{95.png}
+                \caption{1995}
+                \label{fig:1995}
+        \end{subfigure}
+       \begin{subfigure}[b]{0.4\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{00.png}
+                \caption{2000}
+                \label{fig:2000}
+        \end{subfigure}
+        \caption{USGS Data on total water consumption in the indicated year. The more red, the higher the water consumption of the county.}\label{fig:water}
+\end{figure}
+
+For this data, we wrote a visualization software that allows arbitrary sets of county-level data to be displayed on maps of the United States. The visualization of total water usage for every county in the years covered by the USGS data is shown in figure \ref{fig:water}
+
 
 \section{The Case of Insufficient Funding}
+
 
 Our model projects levels of supply and demand in 2025, and proceeds
 to recommend infrastructure to meet that demand while minimising cost.
@@ -518,9 +593,15 @@ Colorado. Retrieved February 1, 2013, from http://sciencepolicy.colorado.edu/adm
 \bibitem{key-17}China's Three Gorges Dam. Retrieved February
 3, 2013, from https://www.mtholyoke.edu/\textasciitilde{}vanti20m/classweb/website/environmentalimpact.html.
 
-\bibitem{key-18}http://www.wunderground.com/blog/JeffMasters/article.html?entrynum=2326.
+\bibitem{key-18}http://www.wunderground.com/blog/JeffMasters/article.html?entrynum=2326
 
 \bibitem{key-19} V.L. McGuire. Changes in Water levels and Storage in the High Plains Aquifer, Predevelopment to 2005.
 
+\bibitem{arcgis}http://forums.arcgis.com/threads/26330-Where-can-I-find-a-shapefile-with-all-US-counties-and-FIPS-code-for-each
+
+\bibitem{julia}http://julialang.org
+
+\bibitem{shapefile-spec}http://www.esri.com/library/whitepapers/pdfs/shapefile.pdf
 \end{thebibliography}
+
 \end{document}
