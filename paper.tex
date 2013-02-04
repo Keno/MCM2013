@@ -323,6 +323,13 @@ Year & Total Water Use (Mgal/day)\tabularnewline
 Based on the above prediction, overall water demand in the United States will increase by 5.66 billion gallons per day between 2013 and 2025. 
 Multiplying by the average cost of de-salinization facilities (\$14  million per billion gallons per day) noted above, it would cost \$79.24 billion to build enough de-salinization plants to meet this demand.
 
+\begin{figure}[h]
+        \centering
+        \includegraphics[width=\textwidth]{25minus05}
+        \caption{Visualization of projected increase in water usage, by county. Red is high, green is low, and cyan is projected decrease.}
+        \label{fig:outline}
+\end{figure}
+
 \section{Meeting Local Demands}
 
 Although the total demand is projected to increase by about $2\%$ across the United States, most of this usage increase is concentrated in a few areas. By state, the most dramatic projected increases in water usage occur in the following regions: South Florida, Arkansas and Missouri, Nebraska, Wyoming and Colorado, and California and Arizona (See Figure). Such substantial and permanent increase in water usage requires permanent increases in supply.
@@ -397,9 +404,9 @@ available figures that the average cost per mile is approximately
 
 This massive pipeline project is difficult to implement within a small time period, so we made the following calculations to prioritize the building of certain pipelines over others. We prioritize based on minimizing cost and maximizing the population served by each piece of the grid.
 
-Edges in the Minimal Spanning Tree in Figure \ref{fig:graph} are weighted inversely proportional to cost and directly proportional to the populations at each of the endpoints, and sorted. The resulting sorted table gives a full list of all $3108$ pipelines sorted by this utility metric. The final (highest priority) rows are shown in Table \ref{table:priority}.
+Edges in the Minimal Spanning Tree in Figure \ref{fig:graph} are weighted inversely proportional to cost and directly proportional to the populations at each of the endpoints, and sorted. The resulting sorted table gives a full list of all $3108$ pipelines sorted by this utility metric. The final (highest priority) rows are shown in Table 2.
 
-\begin{table}[h]\label{table:priority}
+\begin{table}[h]
 \begin{center}
 \begin{tabular}{|c|c|c|}
 \hline
@@ -568,7 +575,7 @@ While de-salinization is simply not an option at all for much of central
 America, one idea we considered was the construction of additional
 dams and reservoirs. One considerable environmental issue associated
 with large dams is that they can cause unanticipated changes in overall
-river flow\cite{key-17}, totaling potentially huge amounts in damages.
+river flow \cite{key-17}, totaling potentially huge amounts in damages.
 
 A secondary and extremely desirable effect of high national connectivity is decreased reliance on groundwater. As a case study to understand the overexploitation of aquifers, consider the High Plains aquifer, which supplies water to Colorado, Kansas, Nebraska, New Mexico, Oklahoma, South Dakota, Texas, and Wyoming, some of the most agricultural states in the US \cite{key-19}.
 Due to overexploitation many areas have experienced severe water-level decline, an average of 12.8 feet. While 9 percent of areas suffered decline as severe as 50 feet, only a bare 2 percent saw any significant (over 10 feet) degree of water-level rise since  prior to development. It is estimated that 9 percent of the total storage in this massive and essential groundwater supply was exhausted in 2005.
