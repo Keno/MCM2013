@@ -367,11 +367,21 @@ From GPS coordinates of the (geographical) centroids of all 3109 mainland counti
 
 Running Kruskal's algorithm with a priority queue and a union-find data structure we were able to calculate the full minimal spanning tree in under a minute of running time.
 
+\begin{figure}[h]
+        \centering
+        \includegraphics[width=\textwidth]{graph}
+        \caption{Minimal-cost spanning tree of (continental) US counties overlaid on top of US map.}
+        \label{fig:graph}
+\end{figure}
+
+
 The end result is a spanning tree of minimal total length connecting
 all counties of the US together. This massive project would resolve
 all local fluctuations in water availability, allowing high-volume
 water transport between nearby counties and from distance regions
 to meet seasonal needs in certain areas.
+
+
 
 \subsection{Projected Cost of the Grid}
 
@@ -386,7 +396,7 @@ available figures that the average cost per mile is approximately
 All data analysis and visualization was performed using the technical computing language Julia, making use of the packages "DataFrames", "Gadfly", "Distributions", "Compose", "Graphs" all of which are available in the Julia package manager and were licensed under the MIT license. 
 
 \subsection{Geographical Information}
-\begin{figure}
+\begin{figure}[h]
 		\centering
         \includegraphics[width=\textwidth]{outlines}
         \caption{Visualization of Shapefile data. For details on the methods used for the Visualization see the "Visualization" section}
