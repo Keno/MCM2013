@@ -145,7 +145,9 @@ infrastructure:
 \end{itemize}
 However, it is not sufficient to simply have more water available
 in the country's supplies as a whole. It's also critical that each
-individual location be able to access that water. For this purpose
+individual location be able to access that water.
+
+ For this purpose
 we aim to find the optimal locations to place pipelines.
 
 This paper is  concerned with the construction of new water
@@ -156,16 +158,16 @@ process that will not be further considered:
 behaviour of the general public has an effect on water supplies. This
 will not be considered here, for several reasons. The key issue is
 that there is a lack of empirical evidence suggesting that currently
-known public education strategies will work to minimise water usage
+known public education strategies will work to minimize water usage
 in the United States (developing such strategies further is beyond
 the scope of this paper). The United States in particular has been
 particularly resistant to attempts to reduce per capita water consumption\cite{key-7}.
 More generally, even water education programmes considered particularly
 successful, such as that of Singapore, have not managed to make a
 huge impact on consumption, with an approximate 5 per cent reduction
-in household water use over 6 years\cite{key-8}. Finally, the effect
-of water education programmes is likely to have a similar effect in
-each location. This means that areas that would be most in need of
+in household water use over 6 years\cite{key-8}. Finally, 
+water education programmes are likely to have a similar effects in
+each location — there is no particular reason to believe they would be much more successful in any one location. This means that areas that would be most in need of
 additional infrastructure taking into account such programmes would
 be essentially the same as those areas most in need while not taking
 into account such programmes. 
@@ -200,6 +202,7 @@ than 3,300 square kilometers, and average length across of less than
 60 kilometers. The level of inaccuracy is sufficiently low that it
 is workable (in contrast, states for instance are far too large to
 be accurately modeled as points).
+\item De-salinization plants, reservoirs, and purification plants are all facilities that are built at a single location, and have the intended effect of providing more water to that location. For the purposes of our modelling, we think of them as being essentially the same kind of thing.
 \item When considering the costs of pipelines, only the distance of pipeline
 is considered. The landscape of a region may in practice affect the
 length of pipeline required, or may result in additional cost per
@@ -226,7 +229,7 @@ cost of pipeline range from approximately \$1.5 million per mile to
 \$5 million per mile\cite{key-11}, with the higher figures generally
 corresponding to older pipelines constructed less efficiently than
 is possible today. We assume a figure of \$2 million per mile for
-the purporses of our pricing estimates.
+the purposes of our pricing estimates.
 
 The cost of a de-salinization facility in 2013 is approximately \$14
 per gallon per day\cite{key-12}.
@@ -319,7 +322,7 @@ Although the total demand is projected to increase by about $2\%$ across the Uni
 
 To solve this problem, we propose to strategically place desalination plants in the coastal regions, namely California and Florida, that require water and build reservoirs to serve inland regions, namely the Arkansas and Nebraska regions. 
 
-\section{Optimising Placement of Pipelines}
+\section{Optimizing Placement of Pipelines}
 
 Our modeling of future water needs is consistent with external research
 on drought locations\cite{key-13}, in that it suggests many of the
@@ -344,7 +347,7 @@ drought conditions.
 
 \subsection{Modeling a Grid of Pipelines}
 
-To optimise the placement of pipelines, we parse geographical data
+To optimize the placement of pipelines, we parse geographical data
 for each of the counties, and produce a graph in which counties are
 represented as vertices, and undirected edges are placed between adjacent
 counties, with weights corresponding to the distance between the counties
@@ -355,7 +358,7 @@ Hawaii, which our model predicts to be in little need of additional
 water infrastructure) while minimizing the length of pipeline used,
 and hence minimizing the cost of the project.
 
-To do this, we implement Kruskal's minimum spannning tree algorithm
+To do this, we implement Kruskal's minimum spanning tree algorithm
 on the complete graph of counties with edges weighted by distance. 
 
 From GPS coordinates of the (geographical) centroids of all 3109 mainland counties, we calculated the adjacency matrix $d[i,j]$ of all county pairs, weighted by geographical distance.
@@ -580,9 +583,7 @@ portion of the population could be affected. We conclude that there
 is significant utility in investing further in water infrastructure
 in the United States.
 
-To an extent
-
-The cost of the proposed infrastructure developments are significant,
+The cost of the proposed infrastructure developments are significant, at a total of $171 billion,
 but must be placed in context. The cost of the 2012-2013 drought season
 on the United States economy is estimated at between \$75 billion
 and \$150 billion, and the potential total cost to the economy of
