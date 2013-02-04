@@ -386,7 +386,57 @@ to meet seasonal needs in certain areas.
 To estimate the cost of building a national high-volume aqueduct system
 from scratch, we estimated in Section \ref{sub:Costs} using publically
 available figures that the average cost per mile is approximately
-\$2 million per mile as technology becomes cheaper and more efficient.
+\$2 million per mile as technology becomes cheaper and more efficient. 
+
+\subsection{Priority Rank of Pipelines}
+
+This massive pipeline project is difficult to implement within a small time period, so we made the following calculations to prioritize the building of certain pipelines over others. We prioritize based on minimizing cost and maximizing the population served by each piece of the grid.
+
+Edges in the Minimal Spanning Tree in Figure \ref{fig:graph} are weighted inversely proportional to cost and directly proportional to the populations at each of the endpoints, and sorted. The resulting sorted table gives a full list of all $3108$ pipelines sorted by this utility metric. The final (highest priority) rows are shown in Table \ref{table:priority}.
+
+\begin{table}[h]\label{table:priority}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+FIPS 1 & FIPS 2 & Priority \tabularnewline
+\hline
+48201 & 48339 & 10346.3 \tabularnewline
+\hline
+24005 & 24510 & 10675.4 \tabularnewline
+\hline
+6001  &6013 & 11019.8 \tabularnewline
+\hline
+34003 & 34017 & 11190.7 \tabularnewline
+\hline
+51153 & 51685 & 12104.5 \tabularnewline
+\hline
+11001 & 51013 & 12113.6 \tabularnewline
+\hline
+48029 & 48091 & 13787.1 \tabularnewline
+\hline
+34017 & 36061 & 16584.3 \tabularnewline
+\hline
+51059 & 51600 & 18528.8 \tabularnewline
+\hline
+51153 & 51683 & 22134.2 \tabularnewline
+\hline
+6037 & 6059  &23742.4 \tabularnewline
+\hline
+36047 & 36061  &27446.1 \tabularnewline
+\hline
+36059 & 36081  &29256.5 \tabularnewline
+\hline
+36005 & 36061 & 32595 \tabularnewline
+\hline
+36047 & 36081 & 33517.6 \tabularnewline
+\hline
+17031 & 17043 & 41637.4 \tabularnewline
+\hline
+
+\end{tabular}
+\caption{Last 17 (highest priority) rows of the table of priority ranks of pipelines to be built.}
+\end{center}
+\end{table}
 
 \section{Data Analysis and Visualization}
 
