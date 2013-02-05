@@ -326,7 +326,7 @@ Multiplying by the average cost of de-salinization facilities (\$14  million per
 \begin{figure}[h]
         \centering
         \includegraphics[width=\textwidth]{25minus05}
-        \caption{Visualization of projected increase in water usage, by county. Red is high, green is low, and cyan is projected decrease.}
+        \caption{Visualization of projected increase in water usage, by county. Red is high, green is low or negative (i.e. projected decrease).}
         \label{fig:outline}
 \end{figure}
 
@@ -568,6 +568,14 @@ dealt with successfully by implementing targeted water restrictions
 \cite{key-16}. There is little argument that the limitations, largely
 on gardening water, do not have a huge impact on people. 
 
+\subsection{Error Analysis}
+Our data projections are subject to significant error on the local level. County data often contains isolated outliers and certain states are missing data in 2000 altogether. We used simple linear regression after removing for missing and anomalous data, but the presence of outliers and noise in such a small data set (four to five points) for each county and the distance of extrapolation magnify possible errors that could occur.
+
+Second, our MST algorithm is based on several simplifying decisions that might introduce error into its calculations. For example, in practice each county has a central town or location that is not usually its geographical centroid, as we assumed for the purposes of the minimal spanning tree calculation. This would throw off our calculations of the spanning tree at the local level as well.
+
+On the other hand, although these local errors may exist and even be large in relative magnitude, by summing them we have a robust large-scale model. Because standard deviation is subadditive the accumulated errors in summing to find the total demand should not be significant. Similarly, whereas local constructions of pipelines might be better optimizable than what we calculated, our calculated total length and cost should not be far off the actual value.
+
+Finally, all expenses are estimated using numbers available online that are sensitive to local conditions, so there is room for error there as well. However, having checked multiple sources for each number these numbers should be within a reasonable constant factor of the true cost.
 
 \section{Environmental Impacts}
 
