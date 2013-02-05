@@ -326,8 +326,8 @@ Multiplying by the average cost of de-salinization facilities (\$14  million per
 \begin{figure}[h]
         \centering
         \includegraphics[width=\textwidth]{25minus05}
-        \caption{Visualization of projected increase in water usage, by county. Red is high, green is low or negative (i.e. projected decrease).}
-        \label{fig:outline}
+        \caption{Visualization of projected increase in water usage, by county. Red is high, green is low, and cyan is projected decrease.}
+        \label{fig:25minus05}
 \end{figure}
 
 \section{Meeting Local Demands}
@@ -407,7 +407,6 @@ This massive pipeline project is difficult to implement within a small time peri
 Edges in the Minimal Spanning Tree in Figure \ref{fig:graph} are weighted inversely proportional to cost and directly proportional to the populations at each of the endpoints, and sorted. The resulting sorted table gives a full list of all $3108$ pipelines sorted by this utility metric. The final (highest priority) rows are shown in Table \ref{table:priority}, with FIPS1 and FIPS2 representing the FIPS codes of the ends of each pipe.
 
 \begin{table}[h]
-\label{table:priority}
 \begin{center}
 \begin{tabular}{|c|c|c|}
 \hline
@@ -448,6 +447,7 @@ FIPS1 & FIPS 2 & Priority \tabularnewline
 
 \end{tabular}
 \caption{Last 17 (highest priority) rows of the table of priority ranks of pipelines to be built.}
+\label{table:priority}
 \end{center}
 \end{table}
 
@@ -465,10 +465,10 @@ All data analysis and visualization was performed using the technical computing 
 \end{figure}
 
 \subsubsection{Data Origin}
-As the problem of water distribution and availability is very much determined by the geographic location and conditions, we obtained a dataset containing the outlines and geographic locations of every county in the United States, which we then used in our county level analysis. Figure \ref{fig:outline} shows a visualization of the contents of this data set. For the method of visualization used, see Section \ref{sec:vis}.
+As the problem of water distribution and availability is very much determined by the geographic location and conditions, we obtained a dataset containing the outlines and geographic locations of every county in the United States \cite{arcgis}, which we then used in our county level analysis. Figure \ref{fig:outline} shows a visualization of the contents of this data set. For the method of visualization used, see Section \ref{sec:vis}.
 
 \subsubsection{Data Processing}
-The dataset we obtained was in the proprietary, binary "Shapefile" format, that is used by many professional GIS systems. Luckily, there exists an open documentation of the format \cite{shapefile-gis}, which allowed us to implement our own parser to extract the locations, and shapes of the various counties. 
+The dataset we obtained was in the proprietary, binary "Shapefile" format, that is used by many professional GIS systems. Luckily, there exists an open documentation of the format \cite{shapefile-spec}, which allowed us to implement our own parser to extract the locations, and shapes of the various counties. 
 
 From the extracted polygons, we were able to calculate many of the desired geographical variables, such as total area of the county and it's location.
 
